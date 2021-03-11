@@ -70,5 +70,14 @@ namespace ShopWine.Controllers
             return StatusCode(500);
 
         }
+
+        [HttpGet]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Logout(string returnUrl = "")
+        {
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction("Login", "Account");
+        }
     }
 }

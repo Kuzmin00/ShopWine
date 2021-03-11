@@ -24,6 +24,9 @@ namespace ShopWine
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddAuthentication().AddCookie(op => op.LoginPath = "/Login");
+
             BllConfiguration.Configuration(services, Configuration.GetConnectionString("defCon"));
         }
 
@@ -42,6 +45,7 @@ namespace ShopWine
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
