@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using ShopWine_BLL.Infrastructure.Provider;
 using ShopWine_Core.Context;
 using ShopWine_Domain.Models;
 using System;
@@ -17,7 +18,7 @@ namespace ShopWine_BLL.Infrastructure
         {
             collection.AddDbContext<ShopWineContext>(x => x.UseSqlServer(dbConnection));
             collection.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<ShopWineContext>().AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<ShopWineContext>().AddDefaultTokenProviders()/*.AddTokenProvider<EmailConfirmationTokenProvider<User>>("emailconfirmation")*/;
         }
     }
 }

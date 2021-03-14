@@ -4,6 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ShopWine_BLL.Infrastructure;
+using ShopWine_BLL.Infrastructure.Provider;
+using ShopWine_BLL.Services;
+using ShopWine_BLL.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +26,20 @@ namespace ShopWine
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            BllConfiguration.Configuration(services, Configuration.GetConnectionString("defCon"));
+
+            var option = new SendGridOptions();
+            Configuration.GetSection("SendGridOptions").Bind(option);
+            services.AddTransient<SendGridOptions>(x => option);
+            //services.Configure<SendGridOptions>(op => Configuration.GetSection("SendGridOptions"));
+
+            services.AddTransient<IEmailSender, EmailSender>();
+           // services.Configure<EmailConfirmationProviderOption>(op => op.TokenLifespan = TimeSpan.FromMinutes(15));
 
             services.AddAuthentication().AddCookie(op => op.LoginPath = "/Login");
 
-            BllConfiguration.Configuration(services, Configuration.GetConnectionString("defCon"));
+            services.AddControllersWithViews();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
