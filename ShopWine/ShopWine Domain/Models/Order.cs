@@ -11,6 +11,8 @@ namespace ShopWine_Domain.Models
         public int Id { get; set; }
 
         public DateTime TimeOfOrder { get; set; }
+        public string Status { get; set; }
+        public bool IsRemove { get; set; }
         public List<Product> Products { get; set; }
         public User User { get; set; }
     }
