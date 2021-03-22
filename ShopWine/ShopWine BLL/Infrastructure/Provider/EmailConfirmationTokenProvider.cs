@@ -15,6 +15,6 @@ namespace ShopWine_BLL.Infrastructure.Provider
             IOptions<DataProtectionTokenProviderOptions> options) : base(dataProtectionProvider, options) { }
     }
 
-    //public class EmailConfirmationProviderOption : DataProtectionTokenProviderOptions
-    //{ }
+    public class EmailConfirmationProviderOption : DataProtectionTokenProviderOptions
+    { }
 }
