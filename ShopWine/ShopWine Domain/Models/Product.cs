@@ -14,7 +14,9 @@ namespace ShopWine_Domain.Models
         public string Name { get; set; }
         public bool IsRemove { get; set; }
         public ICollection<ProductProporties> ProductProporties { get; set; }
-        public Category Category { get; set; }
+        
+         public Category Category { get; set; }
+         public int? CategoryId { get; set; }
 
         public Product()
         {
